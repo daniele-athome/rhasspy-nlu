@@ -60,6 +60,11 @@ def get_slot_replacements(
             # Skip already loaded slot
             continue
 
+        # Take Snips slots as they are
+        if slot_key.startswith('snips/'):
+            replacements[f"${slot_key}"] = [Expression(slot_key)]
+            continue
+
         # Find slot file/program in file system
         slot_info = find_slot(slot_key, slots_dirs, slot_programs_dirs)
         slot_values: typing.List[Expression] = []
